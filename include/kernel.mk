@@ -223,10 +223,10 @@ version_filter=$(if $(findstring @,$(1)),$(shell $(SCRIPT_DIR)/package-metadata.
 define AutoLoad
   $(foreach mod,$(call version_filter,$(2)), \
     mkdir -p $$$$(1)/etc/modules.d; \
-    echo "$(mod)$$$$(if $$$$(MODPARAMS.$(mod)), $$$$(MODPARAMS.$(mod)),$$$$(if $$$$(MODPARAMS), $$$$(MODPARAMS)))" > $$$$(1)/etc/modules.d/$(if $(1),$(1)-)$$(1); \
+    echo "$(mod)$$$$(if $$$$(MODPARAMS.$(mod)), $$$$(MODPARAMS.$(mod)),$$$$(if $$$$(MODPARAMS), $$$$(MODPARAMS)))" > $$$$(1)/etc/modules.d/$(if $(1),$(1)-)$$$$(1); \
     $(if $(3), \
       mkdir -p $$$$(1)/etc/modules-boot.d; \
-      ln -sf ../modules.d/$(if $(1),$(1)-)$$(1) $$$$(1)/etc/modules-boot.d/;))
+      ln -sf ../modules.d/$(if $(1),$(1)-)$$$$(1) $$$$(1)/etc/modules-boot.d/;))
 endef
 
 # 1: module list
