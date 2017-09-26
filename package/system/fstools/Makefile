@@ -66,6 +66,13 @@ define Package/block-mount
   DEPENDS:=+ubox +libubox +libuci
 endef
 
+define Package/autopart
+  SECTION:=base
+  CATEGORY:=Base system
+  TITLE:=Automatically create partitions
+  DEPENDS:=+block-mount +sfdisk +partx-utils
+endef
+
 define Package/blockd
   SECTION:=base
   CATEGORY:=Base system
@@ -102,6 +109,11 @@ define Package/block-mount/install
 
 endef
 
+define Package/autopart/install
+	$(INSTALL_DIR) $(1)/etc/init.d/
+	$(INSTALL_BIN) ./files/autopart.init $(1)/etc/init.d/autopart
+endef
+
 define Package/blockd/install
 	$(INSTALL_DIR) $(1)/sbin $(1)/etc/init.d/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/blockd $(1)/sbin/
@@ -118,4 +130,5 @@ endef
 $(eval $(call BuildPackage,fstools))
 $(eval $(call BuildPackage,snapshot-tool))
 $(eval $(call BuildPackage,block-mount))
+$(eval $(call BuildPackage,autopart))
 $(eval $(call BuildPackage,blockd))
